@@ -50,9 +50,12 @@ public class GenericDAOimpl<T> implements GenericDAO<T>{
 	@Override
 	public T borrar(Serializable id) {
 		etx.begin();
-		this.getEntityManager().remove(id);
+		T entity = this.getEntityManager().find(this.getPersistentClass(), id);
 		etx.commit();
-		return null;
+		if(entity != null) {
+			this.borrar(entity);
+		}
+		return entity;
 	}
 
 	@Override
@@ -74,8 +77,9 @@ public class GenericDAOimpl<T> implements GenericDAO<T>{
 		T resul =null;
 		try {
 			etx.begin();
-			Query consulta = EMF.getEMF().createEntityManager().createQuery("select e from" + getPersistentClass().getSimpleName()+"where id = :id");
-			consulta.setParameter("id", "id");
+			Query consulta = EMF.getEMF().createEntityManager().createQuery("select e from "+getPersistentClass().getSimpleName() + " e where id = :id ");
+			consulta.setParameter("id", id);
+			etx.commit();
 			resul = (T) consulta.getSingleResult();
 		}
 		catch (NoResultException e) {

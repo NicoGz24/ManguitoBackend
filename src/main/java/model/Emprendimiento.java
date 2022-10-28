@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -31,10 +32,11 @@ public class Emprendimiento {
 	@Column(name="visualizar_manguitos")
 	private boolean visualizarManguitos;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Donacion>listaDonaciones;
 	
 	@OneToMany
+	@JoinColumn
 	private List<Categoria>categorias;
 	
 	@OneToMany
@@ -46,8 +48,6 @@ public class Emprendimiento {
 	@OneToMany
 	private List<RedSocial>redesSociales;
 	
-	@OneToOne
-	private Usuario usuario;
 	
 
 	public Emprendimiento() {
@@ -62,12 +62,7 @@ public class Emprendimiento {
 		this.listaDonaciones = new ArrayList<Donacion>();
 	}
 	
-	public Usuario getUsuario() {
-		return usuario;
-	}
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
+
 	public String getNombre() {
 		return nombre;
 	}

@@ -1,11 +1,11 @@
 package model;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,18 +21,15 @@ public class Posteo {
 	@Column(name="path_imagen")
 	private String imagen;
 	
-	@ManyToOne
-	private Emprendimiento emprendimiento;
 	
 	public Posteo() {
 		super();
 	}
 	
-	public Posteo(String titulo, String descripcion, String imagen, Emprendimiento emprendimiento) {
+	public Posteo(String titulo, String descripcion, String imagen) {
 		this.setTitulo(titulo);
 		this.setDescripcion(descripcion);
 		this.setImagen(imagen);
-		this.setEmprendimiento(emprendimiento);
 	}
 	
 	public int getId() {
@@ -57,11 +54,5 @@ public class Posteo {
 		this.imagen = imagen;
 	}
 
-	public Emprendimiento getEmprendimiento() {
-		return emprendimiento;
-	}
 
-	public void setEmprendimiento(Emprendimiento emprendimiento) {
-		this.emprendimiento = emprendimiento;
-	}
 }
