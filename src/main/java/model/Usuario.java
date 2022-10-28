@@ -32,13 +32,13 @@ public class Usuario {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Emprendimiento emprendimiento;
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "donador")
 	private List<Donacion>donaciones;
-	
 	
 	public Usuario () {
 		super();
 	}
+
 	public Usuario(String usuario, String email, String contraseña,boolean admin) {
 		this.setNombre(usuario);
 		this.setEmail(email);

@@ -242,10 +242,23 @@ public class Main {
         for (Categoria cate : categorias) {
         	System.out.println(cate.getNombre());
         }
-
+        categorias.remove(1);
+      	empre1.seListaCategorias(categorias);
+      	emprendimientoDAO.actualizar(empre1);
+      	System.out.println("Categoria borrada del emprendimiento");
+      	
+      	empre1 = usuarioDAO.getUsuario("juan569").getEmprendimiento();
+		System.out.println(empre1.getNombre());
+		System.out.println("Las categorias de emprendimiento son");
+		categorias = empre1.getCategorias();
+        for (Categoria cate : categorias) {
+        	System.out.println(cate.getNombre());
+        }
         
-        
-        
+        List<RedSocial>redes = redSocialDAO.getRedesEmprendimiento("huellitas, refugio de animales");
+        for (RedSocial red : redes){
+        	System.out.println(red.getNombre() + red.getUrl());
+        }
 
 	}
 

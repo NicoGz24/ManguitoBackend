@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -35,8 +37,8 @@ public class Emprendimiento {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Donacion>listaDonaciones;
 	
-	@OneToMany
-	@JoinColumn
+	@ManyToMany
+	@JoinTable
 	private List<Categoria>categorias;
 	
 	@OneToMany
@@ -49,7 +51,6 @@ public class Emprendimiento {
 	private List<RedSocial>redesSociales;
 	
 	
-
 	public Emprendimiento() {
 		super();
 	}
@@ -89,6 +90,9 @@ public class Emprendimiento {
 	}
 	public List<Categoria> getCategorias() {
 		return categorias;
+	}
+	public void seListaCategorias(List<Categoria>categorias) {
+		this.categorias= categorias;
 	}
 	public void agregarCategoria(Categoria categoria) {
 		this.categorias.add(categoria);

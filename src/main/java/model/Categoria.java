@@ -17,8 +17,7 @@ public class Categoria {
 	private String descripcion;
 	
 	private String imagen; //ver el tipo de la imagen
-	
-	
+		
 	public Categoria() {
 		super();
 	}

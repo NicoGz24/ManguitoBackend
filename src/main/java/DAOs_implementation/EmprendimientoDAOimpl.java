@@ -24,6 +24,7 @@ public class EmprendimientoDAOimpl extends GenericDAOimpl<Emprendimiento> implem
 		return resultado;
 	}
 	public void borrarEmprendimiento(String nombre) {
-		
+		Emprendimiento empre = this.getEmprendimiento(nombre);
+		this.borrar(empre.getId());
 	}
 }
