@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Concurso Camiseta de la Seleccion</title>
+</head>
+<body>
+	<br>
+	<form action="seleccionDePartido" method="Post">
+	  <div class="mb-3">
+	    <label class="form-label">Ingrese el texto que desea tener en su camiseta</label>
+	    <input type="text" class="form-control" name="texto" >
+	  </div>
+	  <br>
+	  <div class="mb-3">
+	    <label  class="form-label">Seleccione el partido al que va a asistir</label>
+	    <select class="form-select" aria-label="Default select example" name = "seleccion">
+		  <option selected>Seleccione una opcion</option>
+		  <option value="Partido1">Argentina vs. Arabia Saudita (Lusail Stadium)</option>
+		  <option value="Partido2">Argentina vs. México (Lusail Stadium)</option>
+		  <option value="Partido3">Polonia vs. Argentina (Stadium 974)</option>
+		</select>
+	  </div>
+	  <br>
+	  <button type="submit" class="btn btn-primary">Guardar seleccion</button>
+	</form>
+</body>
+</html>
