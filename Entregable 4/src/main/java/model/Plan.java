@@ -1,6 +1,6 @@
 package model;
 
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +15,11 @@ public class Plan {
 	@Id @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name="id_plan")
 	private int id;
+	@Column(name="id_emprendimiento")
+	private	int idEmprendimiento;
+	@Column(name="costo")
 	private double costo;
+	@Column(name="destallesBeneficio")
 	private	String destallesBeneficio;
 	
 	@ManyToOne 
@@ -34,7 +38,9 @@ public class Plan {
 		//recuperar de la bd el emprendimiento con el id
 		return null;
 	}
-
+	public void setIdEmprendimiento(int idEmprendimiento) {
+		this.idEmprendimiento=idEmprendimiento;
+	}
 	public void setEmprendimiento(Emprendimiento emprendimiento) {
 		this.emprendimiento = emprendimiento;
 	}
