@@ -19,6 +19,9 @@ public class Categoria {
 	@Column(name="imagen")
 	private String imagen; //ver el tipo de la imagen
 		
+	public Categoria () {
+		super();
+	}
 	
 	public Categoria(String nombre, String descripcion, String imagen) {
 		this.setNombre(nombre);

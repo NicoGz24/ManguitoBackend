@@ -29,7 +29,9 @@ public abstract class Donacion {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Usuario donador;
 	
-
+	public Donacion () {
+		super();
+	}
 	public Donacion(double valorManguito,String mensajes,Date fechaDeDonacion,String medioDePago,Usuario donador) {
 		this.setDonador(donador);
 		this.setFechaDeDonacion(fechaDeDonacion);

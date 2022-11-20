@@ -19,6 +19,9 @@ public class RedSocial {
 	private String url;
 	
 
+	public RedSocial () {
+		super();
+	}
 	
 	public RedSocial(String nombre, String url) {
 		this.setNombre(nombre);

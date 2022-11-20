@@ -42,6 +42,8 @@
 			<artifactId>jackson-annotations</artifactId>
 			<version>2.9.6</version>
 		</dependency>
+		
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
@@ -62,21 +64,18 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>5.3.12</version>
 		</dependency>
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring</artifactId>
-		    <version>5.3.23</version>
-		    <type>pom</type>
-		</dependency>
+		
+		
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
 			<version>2.7.5</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>6.0.0</version>
+			<version>5.3.12</version>
 		</dependency>
 	</dependencies>
 	<build>

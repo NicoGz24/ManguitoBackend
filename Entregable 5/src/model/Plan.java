@@ -23,7 +23,10 @@ public class Plan {
 	@ManyToOne 
 	private Emprendimiento emprendimiento;
 	
-
+	public Plan () {
+		super();
+	}
+	
 	public Plan(Emprendimiento Emprendimiento, double costo) {
 		this.setEmprendimiento(Emprendimiento);
 		this.setCostoSuscripcion(costo);

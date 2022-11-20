@@ -16,7 +16,9 @@ public class DonacionPlan extends Donacion{
 	private boolean beneficioCanjeado;
 	
 	
-	
+	public DonacionPlan () {
+		super();
+	}
 
 	public DonacionPlan (double valorManguito,String mensajes,Date fechaDeDonacion,String medioDePago,Usuario donador, Plan plan){
 		super(valorManguito,mensajes,fechaDeDonacion,medioDePago,donador);

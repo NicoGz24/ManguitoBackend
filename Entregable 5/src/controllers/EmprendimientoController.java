@@ -24,36 +24,39 @@ public class EmprendimientoController {
 	private EmprendimientoRepository  emprendimientoRepository;
 
 
-	@PostMapping
+	@PostMapping("/registrarEmprendimiento")
 	public ResponseEntity<Emprendimiento> registrarEmprendimiento(@RequestBody Emprendimiento empre){
-		if (!emprendimientoRepository.existByNombre(empre.getNombre())) {
+		if (!emprendimientoRepository.existsBynombre(empre.getNombre())) {
 			emprendimientoRepository.save(empre);
 			return new ResponseEntity<Emprendimiento>(HttpStatus.CREATED);
 		}
 		return new ResponseEntity<Emprendimiento>(HttpStatus.BAD_REQUEST);
 	}
 
-	@PutMapping
+	@PutMapping("/actualizarEmprendimiento")
 	public ResponseEntity<Emprendimiento> actualizarDatosEmprendimiento(@RequestBody Emprendimiento empre) {
 		emprendimientoRepository.save(empre);
 		return new ResponseEntity<Emprendimiento>(HttpStatus.OK);
 	}
 	
-	@GetMapping
+	@GetMapping("/buscarEmprendimiento")
 	public ResponseEntity<Emprendimiento> buscarEmprendimiento(@RequestBody String nombre){
-		Emprendimiento empre = emprendimientoRepository.findByNombre(nombre);
-		if (empre ==null) {
-			return new ResponseEntity<Emprendimiento>(HttpStatus.NO_CONTENT);
+		Emprendimiento empre = emprendimientoRepository.findBynombre(nombre);
+		if (empre != null) {	
+			return new ResponseEntity<Emprendimiento>(empre,HttpStatus.OK); 
 		}
-		return new ResponseEntity<Emprendimiento>(empre,HttpStatus.OK); 
+		return new ResponseEntity<Emprendimiento>(HttpStatus.NO_CONTENT);
+		
 	}
 	
-	@GetMapping
+	@GetMapping ("/listarDonacionesEmprendimiento")
 	public ResponseEntity<List<Donacion>>obtenerDonaciones(@RequestBody String nombre){
-		Emprendimiento empre = emprendimientoRepository.findByNombre(nombre);
+		Emprendimiento empre = emprendimientoRepository.findBynombre(nombre);
 		if ((empre != null) && (! empre.getListaDonaciones().isEmpty())) {
 			return new ResponseEntity<List<Donacion>>(empre.getListaDonaciones(), HttpStatus.OK);
 		}
 		return new ResponseEntity<List<Donacion>>(HttpStatus.NO_CONTENT);
 	}
+	
+
 }

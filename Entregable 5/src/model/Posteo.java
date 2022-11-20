@@ -22,6 +22,9 @@ public class Posteo {
 	private String imagen;
 	
 	
+	public Posteo () {
+		super();
+	}
 
 	public Posteo(String titulo, String descripcion, String imagen) {
 		this.setTitulo(titulo);

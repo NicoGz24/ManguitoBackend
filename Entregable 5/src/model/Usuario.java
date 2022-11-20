@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="usuarios",schema = "manguito")
@@ -33,9 +35,12 @@ public class Usuario {
 	private Emprendimiento emprendimiento;
 	
 	@OneToMany(mappedBy = "donador")
+	@JsonIgnore
 	private List<Donacion>donaciones;
 	
-
+	public Usuario() {
+		super();
+	}
 
 	public Usuario(String usuario, String email, String contraseña,boolean admin) {
 		this.setNombre(usuario);

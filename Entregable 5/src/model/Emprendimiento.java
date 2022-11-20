@@ -48,7 +48,10 @@ public class Emprendimiento {
 	@OneToMany
 	private List<RedSocial>redesSociales;
 	
-
+	public Emprendimiento () {
+		super();
+	}
+	
 	public Emprendimiento (String nombre) {
 		this.setNombre(nombre);
 		this.listaPosteos = new ArrayList<Posteo>();
