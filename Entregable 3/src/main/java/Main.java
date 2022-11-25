@@ -218,6 +218,7 @@ public class Main {
 		System.out.println("FIN DE PERSISTENCIA");
 		
 		//Pruebas DAOs
+		/*
 		usuario1 = usuarioDAO.getUsuario("sabri890");
 		System.out.println(usuario1.getEmail());
                 
@@ -254,8 +255,9 @@ public class Main {
         List<RedSocial>redes = redSocialDAO.getRedesEmprendimiento("huellitas, refugio de animales");
         for (RedSocial red : redes){
         	System.out.println(red.getNombre() + red.getUrl());
+       
         }
-
+	 */
 	}
 
 }

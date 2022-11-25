@@ -24,6 +24,7 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	private EmprendimientoRepository emprendimientoRepository;
 
 
 	 
@@ -38,41 +39,65 @@ public class UsuarioController {
 	 }
 		
 	 @PutMapping("/NewPassword")
-	 public ResponseEntity<Usuario> setNewPassword(@RequestBody Usuario usu) {
-		 usuarioRepository.save(usu);
-		 return new ResponseEntity<Usuario>(HttpStatus.OK);
+	 public ResponseEntity<Usuario> setNewPassword(@RequestParam String usuario, @RequestParam String contraseña) {
+		 String mensaje = "El usuario ingresado no se encuentra en la BD";
+		 Usuario usu= usuarioRepository.findByUsuario(usuario);
+		 if (usu != null) {
+			 usu.setContraseña(contraseña);
+			 usuarioRepository.save(usu);
+			 mensaje = "Se ha cambiado la contraseña con exito";
+			 return new ResponseEntity<Usuario>(usu,HttpStatus.OK);
 		 }
-	 
-	 
+		 else  return new ResponseEntity(mensaje,HttpStatus.NOT_FOUND);
+	 	}
+
+	
 	 @GetMapping("/buscarUsuario")
 	 public  ResponseEntity<Usuario> findByUsuario(@RequestParam String usuario){
+		 String mensaje = "El usuario ingresado no se encuentra en la BD";
 		 Usuario usu= usuarioRepository.findByUsuario(usuario);
 		 if (usu != null) {
 			 return new ResponseEntity<Usuario>(usu,HttpStatus.OK);
 		 }
-		 else  return new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND);
+		 else  return new ResponseEntity(mensaje,HttpStatus.NOT_FOUND);
 	 }
 	 
-	 @PutMapping("/login")
+	 @PostMapping("/login")
 	 public ResponseEntity<Usuario> loginUsuario(@RequestParam String usuario, @RequestParam String contraseña) {
-		 //String mensaje = "";
+		 String mensaje = "Usuario o contraseña no validos";
 		 Usuario usu = usuarioRepository.findByUsuarioAndContraseña(usuario , contraseña);
-		 if (usu != null)  {
-			  //mensaje	= "Usuario logeado correctamente"; 
-			 return new ResponseEntity<Usuario>( HttpStatus.OK);
+		 if (usu != null)  { 
+			 mensaje = "Usuario logeado con exito"; 
+			 return new ResponseEntity(mensaje, HttpStatus.OK);
+		 } 
+		 return new ResponseEntity(mensaje,HttpStatus.NOT_ACCEPTABLE);
+	 }
+	 
+	 @PostMapping("/registrarEmprendimiento")
+	 public ResponseEntity<Usuario> registrarEmprendimiento(@RequestParam String usuario, @RequestBody Emprendimiento empre){
+		 String mensaje = "El usuario ingresado no se encuentra en la BD";
+		 Usuario usu= usuarioRepository.findByUsuario(usuario);
+		 if (usu != null) {
+			 usu.registrarEmprendimiento(empre);
+			 usuarioRepository.save(usu);
+			 mensaje = "Se ha registrado con exito el emprendimiento del usuario "+usuario;
+			 return new ResponseEntity(mensaje,HttpStatus.OK);
 		 }
-		 //mensaje = "El usuario o la contraseña no son correctos"; 
-		 return new ResponseEntity<Usuario>(HttpStatus.NOT_ACCEPTABLE);
+		 else  return new ResponseEntity(mensaje,HttpStatus.NOT_FOUND);
+		 
 	 }
 	 
 	 @PutMapping ("/donarManguitos")
-	 public ResponseEntity<Usuario> donarManguitos(@RequestBody Donacion donacion, @RequestParam String nombre){
-		 EmprendimientoRepository empreRepo = null;
-		 Emprendimiento empre = empreRepo.findBynombre(nombre);
-		 empre.agregarDonacion((DonacionManguito)donacion);
-		 empreRepo.save(empre);
-		 //donacion.getDonador().donarManguitos(donacion); Hace falta hacer esto ??
-		 usuarioRepository.save(donacion.getDonador());
+	 public ResponseEntity<Usuario> donarManguitos(@RequestBody DonacionManguito donacion, @RequestParam String emprendimiento){
+		 Emprendimiento empre = emprendimientoRepository.findBynombre(emprendimiento);
+		 empre.agregarDonacion(donacion);
+		 emprendimientoRepository.save(empre);
+		 Usuario usu = usuarioRepository.findByUsuario(donacion.getDonador().getNombre());
+		 if(usu != null) {
+			 usu.donarManguitos(donacion);
+			 usuarioRepository.save(usu);
+		 }
+		 String mensaje = "Se ha registrado la donacion de forma exitosa";
 		 return new ResponseEntity<Usuario>(HttpStatus.OK);
 	 }
 }
