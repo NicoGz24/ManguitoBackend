@@ -36,8 +36,7 @@ public class Plan {
 		//el detalle del beneficio es opcional
 	}
 	public Emprendimiento getEmprendimiento() {
-		//recuperar de la bd el emprendimiento con el id
-		return null;
+		return emprendimiento;
 	}
 
 	public void setEmprendimiento(Emprendimiento emprendimiento) {

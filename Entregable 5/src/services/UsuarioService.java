@@ -73,14 +73,16 @@ public class UsuarioService {
 		return usuario;
 	}
 	
-	public void donarManguitos(DonacionManguito donacion, int idEmprendimiento) {
+	public boolean donarManguitos(DonacionManguito donacion, int idEmprendimiento) {
 		Emprendimiento empre = emprendimientoRepository.findById(idEmprendimiento);
 		if(empre !=null) {
 			donacion.setDonador(usuarioRepository.findByUsuario(donacion.getDonador().getNombre()));
 			empre.agregarDonacion(donacion);
 			emprendimientoRepository.save(empre);
-			
+			return true;
 		}
+		return false;
+		
 	}
 	
 	public boolean verificarDonacionPlan(DonacionPlan donacion, int idPlan) {

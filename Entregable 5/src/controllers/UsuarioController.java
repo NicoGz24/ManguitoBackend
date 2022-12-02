@@ -87,8 +87,10 @@ public class UsuarioController {
 	 @PutMapping ("/donarManguitos")
 	 @Transactional
 	 public ResponseEntity<Usuario> donarManguitos(@RequestBody DonacionManguito donacion, @RequestParam int idEmprendimiento){
-		 usuarioService.donarManguitos(donacion, idEmprendimiento);
+		 if(usuarioService.donarManguitos(donacion, idEmprendimiento)) {
 		 return new ResponseEntity("Se ha registrado la donacion de forma exitosa",HttpStatus.OK);
+		 }
+		 return new ResponseEntity("Emprendimiento no valido",HttpStatus.NOT_FOUND);
 	 }
 	 
 	 @PutMapping ("/donarPlan")
