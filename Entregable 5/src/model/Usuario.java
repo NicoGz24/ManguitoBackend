@@ -32,10 +32,10 @@ public class Usuario {
 	@Column(name="esAdmin")
 	private boolean esAdmin;
 	
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Emprendimiento emprendimiento;
 	
-	@OneToMany(mappedBy = "donador")
+	@OneToMany(mappedBy = "donador",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JsonIgnore
 	private List<Donacion>donaciones;
 	

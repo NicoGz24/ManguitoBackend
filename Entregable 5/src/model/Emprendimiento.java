@@ -38,8 +38,8 @@ public class Emprendimiento {
 	@Column(name="visualizar_manguitos")
 	private boolean visualizarManguitos;
 	
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Donacion>listaDonaciones;
 	
 	@LazyCollection(LazyCollectionOption.FALSE)

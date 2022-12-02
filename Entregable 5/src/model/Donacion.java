@@ -31,32 +31,31 @@ public abstract class Donacion {
 	
 	//eager
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	@JsonIgnore
 	private Usuario donador;
 	
 	public Donacion () {
 		super();
 	}
-	public Donacion(double valorManguito,String mensajes,Date fechaDeDonacion,String medioDePago,Usuario donador) {
+	public Donacion(double valor,String mensaje,Date fechaDeDonacion,String medioDePago,Usuario donador) {
 		this.setDonador(donador);
 		this.setFechaDeDonacion(fechaDeDonacion);
 		this.setMedioDePago(medioDePago);
-		this.setMensajes(mensajes);
-		this.setValorManguito(valorManguito);
+		this.setMensaje(mensaje);
+		this.setValor(valor);
 	}
 	
 	
-	public double getValorManguito() {
+	public double getValor() {
 		return valor;
 	}
-	public void setValorManguito(double valorManguito) {
-		this.valor = valorManguito;
+	public void setValor(double valor) {
+		this.valor = valor;
 	}
-	public String getMensajes() {
+	public String getMensaje() {
 		return mensaje;
 	}
-	public void setMensajes(String mensajes) {
-		this.mensaje = mensajes;
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
 	}
 	public Date getFechaDeDonacion() {
 		return fechaDeDonacion;

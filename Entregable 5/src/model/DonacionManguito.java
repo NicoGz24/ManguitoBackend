@@ -16,8 +16,8 @@ public class DonacionManguito extends Donacion{
 		super();
 	}
 	
-	public DonacionManguito(double valorManguito,String mensajes,Date fechaDeDonacion,String medioDePago,Usuario donador, int cantManguitos) {
-		super(valorManguito,mensajes,fechaDeDonacion,medioDePago,donador);
+	public DonacionManguito(double valor,String mensaje,Date fechaDeDonacion,String medioDePago,Usuario donador, int cantManguitos) {
+		super(valor,mensaje,fechaDeDonacion,medioDePago,donador);
 		this.setCantidadManguitos(cantManguitos);
 	}
 	

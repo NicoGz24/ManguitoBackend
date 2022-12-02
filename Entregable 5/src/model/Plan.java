@@ -22,7 +22,7 @@ public class Plan {
 	 @Column(name="destallesBeneficio")
 	private	String destallesBeneficio;
 	
-	 //aca cascade e eager
+
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER) 
 	private Emprendimiento emprendimiento;
 	

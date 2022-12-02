@@ -20,8 +20,8 @@ public class DonacionPlan extends Donacion{
 		super();
 	}
 
-	public DonacionPlan (double valorManguito,String mensajes,Date fechaDeDonacion,String medioDePago,Usuario donador, Plan plan){
-		super(valorManguito,mensajes,fechaDeDonacion,medioDePago,donador);
+	public DonacionPlan (double valor,String mensaje,Date fechaDeDonacion,String medioDePago,Usuario donador, Plan plan){
+		super(valor,mensaje,fechaDeDonacion,medioDePago,donador);
 		this.setBeneficioCanjeado(false);
 		this.setPlan(plan);
 	}

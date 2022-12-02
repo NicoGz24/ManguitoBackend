@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = { "ttps.spring.config","repositorys", "controllers"})
+@ComponentScan(basePackages = { "ttps.spring.config","repositorys", "controllers", "services"})
 public class AppConfig implements WebMvcConfigurer {
 
 	@Override
