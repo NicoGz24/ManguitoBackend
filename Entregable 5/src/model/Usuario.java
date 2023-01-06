@@ -32,6 +32,7 @@ public class Usuario {
 	@Column(name="esAdmin")
 	private boolean esAdmin;
 	
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Emprendimiento emprendimiento;
 	

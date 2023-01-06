@@ -1,5 +1,7 @@
 package services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,10 @@ public class UsuarioService {
 
 
 	
+	public List<Usuario>listar(){
+		return usuarioRepository.findAll();
+	}
+	
 	public Usuario registrarUsuario(Usuario usu) {
 		 Usuario usuario = usuarioRepository.findByUsuario(usu.getNombre());
 		 if ((usu != null) && (usuario == null)) {	 
@@ -54,7 +60,7 @@ public class UsuarioService {
 	
 	public Usuario registrarEmprendimiento(int idUsuario, Emprendimiento empre) {
 		Usuario usuario = usuarioRepository.findById(idUsuario);
-		Emprendimiento emprendimiento = emprendimientoRepository.findById(empre.getId());
+		Emprendimiento emprendimiento = emprendimientoRepository.findBynombre(empre.getNombre());
 		if((usuario != null) && (emprendimiento == null)) {
 			usuario.registrarEmprendimiento(empre);
 			usuarioRepository.save(usuario);

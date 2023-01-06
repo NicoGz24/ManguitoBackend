@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="planes", schema="manguito")
 public class Plan {
@@ -22,7 +24,7 @@ public class Plan {
 	 @Column(name="destallesBeneficio")
 	private	String destallesBeneficio;
 	
-
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER) 
 	private Emprendimiento emprendimiento;
 	

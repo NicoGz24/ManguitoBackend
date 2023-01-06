@@ -38,23 +38,28 @@ public class Emprendimiento {
 	@Column(name="visualizar_manguitos")
 	private boolean visualizarManguitos;
 	
+	@JsonIgnore
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Donacion>listaDonaciones;
 	
+	@JsonIgnore
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable
 	private List<Categoria>categorias;
 	
+	@JsonIgnore
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Plan>listaPlanes;
 	
+	@JsonIgnore
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Posteo>listaPosteos;
 	
+	@JsonIgnore
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<RedSocial>redesSociales;

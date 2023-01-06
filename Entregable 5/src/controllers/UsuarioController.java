@@ -1,10 +1,13 @@
 package controllers;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +24,7 @@ import model.Emprendimiento;
 import model.Usuario;
 import services.UsuarioService;
 
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
@@ -30,20 +34,30 @@ public class UsuarioController {
 
 
 	 
+	 @GetMapping("/listar")
+	 public  ResponseEntity<List<Usuario>> listar(){
+		 List<Usuario>usuarios = usuarioService.listar();
+		 if (usuarios !=null) {
+			 return new ResponseEntity<List<Usuario>>(usuarios,HttpStatus.OK);
+		 }
+		 else  return new ResponseEntity("No hay usuarios registrados",HttpStatus.NOT_FOUND);
+	 }
 	 @PostMapping("/registrarUsuario")
 	 public ResponseEntity<Usuario> registrarUsuario(@RequestBody Usuario usu) {
 		 Usuario usuario = usuarioService.registrarUsuario(usu);
 		 if (usuario != null) {
 			 return new ResponseEntity<Usuario>(HttpStatus.CREATED);
 		 }
-		 return new ResponseEntity<Usuario>(HttpStatus.BAD_REQUEST);
+		 return new ResponseEntity("Usuario registrado",HttpStatus.BAD_REQUEST);
 	 }
 		
 	 @PutMapping("/actualizarUsuario")
 	 public ResponseEntity<Usuario> actualizarUsuario(@RequestBody Usuario usuario) {
+		 System.out.println("DENTRO DEL ACTUALIZAR");
 		 String mensaje = "El usuario ingresado no se encuentra en la BD";
 		 Usuario usu = usuarioService.buscarUsuario(usuario.getId());
 		 if (usu != null) {
+			 System.out.println(usuario.getId()+"-"+usuario.getNombre()+"-"+usuario.getContraseña());
 			 usuario.registrarEmprendimiento(usu.getEmprendimiento());
 			 usuarioService.actualizarUsuario(usuario);
 			 mensaje = "Se ha cambiado la contraseña con exito";
@@ -55,6 +69,7 @@ public class UsuarioController {
 	
 	 @GetMapping("/buscarUsuario")
 	 public  ResponseEntity<Usuario> findByUsuario(@RequestParam int idUsuario){
+		 System.out.println("DENTRO DEL BUSCAR USUARIO");
 		 String mensaje = "El usuario ingresado no se encuentra en la BD";
 		 Usuario usu= usuarioService.buscarUsuario(idUsuario);
 		 if (usu !=null) {
@@ -75,7 +90,7 @@ public class UsuarioController {
 	 
 	 @PostMapping("/registrarEmprendimiento")
 	 public ResponseEntity<Usuario> registrarEmprendimiento(@RequestParam int idUsuario, @RequestBody Emprendimiento empre){
-		 String mensaje = "El usuario ingresado no se encuentra en la BD";
+		 String mensaje = "Los datos ingresados no son validos";
 		 if (usuarioService.registrarEmprendimiento(idUsuario, empre) != null) {
 			 mensaje = "Se ha registrado con exito el emprendimiento";
 			 return new ResponseEntity(mensaje,HttpStatus.OK);
