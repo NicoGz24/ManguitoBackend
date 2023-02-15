@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import model.Categoria;
 import model.DonacionManguito;
 import model.DonacionPlan;
 import model.Emprendimiento;
 import model.Plan;
 import model.Usuario;
+import repositorys.CategoriaRepository;
 import repositorys.EmprendimientoRepository;
 import repositorys.PlanRepository;
 import repositorys.UsuarioRepository;
@@ -28,7 +29,8 @@ public class UsuarioService {
 	@Autowired
 	private PlanRepository planRepository;
 
-
+	@Autowired
+	private CategoriaRepository cateRepository;
 	
 	public List<Usuario>listar(){
 		return usuarioRepository.findAll();
@@ -50,12 +52,9 @@ public class UsuarioService {
 		return usuarioRepository.findById(idUsuario);
 	}
 	
-	public boolean loginUsuario( String usuario,String contraseña) {
-		Usuario usu = usuarioRepository.findByUsuarioAndContraseña(usuario , contraseña);
-		if (usu != null) {
-			return true;
-		}
-		return false;
+	public Usuario loginUsuario( String usuario,String contraseña) {
+		Usuario usu = usuarioRepository.findByUsuarioAndPassword(usuario , contraseña);
+		return usu;
 	}
 	
 	public Usuario registrarEmprendimiento(int idUsuario, Emprendimiento empre) {
@@ -110,4 +109,12 @@ public class UsuarioService {
 		}
 	}
 	
+	public Categoria altaCategoria(Categoria categoria) {
+		Categoria cate = this.cateRepository.findByNombre(categoria.getNombre());
+		if(cate == null) {
+			this.cateRepository.save(categoria);
+			return categoria;
+		}
+		return null;
+	}
 }

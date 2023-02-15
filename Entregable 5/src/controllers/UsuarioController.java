@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import model.Categoria;
 import model.DonacionManguito;
 import model.DonacionPlan;
 import model.Emprendimiento;
@@ -34,7 +34,7 @@ public class UsuarioController {
 
 
 	 
-	 @GetMapping("/listar")
+	 @GetMapping("/listarUsuarios")
 	 public  ResponseEntity<List<Usuario>> listar(){
 		 List<Usuario>usuarios = usuarioService.listar();
 		 if (usuarios !=null) {
@@ -42,6 +42,7 @@ public class UsuarioController {
 		 }
 		 else  return new ResponseEntity("No hay usuarios registrados",HttpStatus.NOT_FOUND);
 	 }
+	 
 	 @PostMapping("/registrarUsuario")
 	 public ResponseEntity<Usuario> registrarUsuario(@RequestBody Usuario usu) {
 		 Usuario usuario = usuarioService.registrarUsuario(usu);
@@ -57,7 +58,7 @@ public class UsuarioController {
 		 String mensaje = "El usuario ingresado no se encuentra en la BD";
 		 Usuario usu = usuarioService.buscarUsuario(usuario.getId());
 		 if (usu != null) {
-			 System.out.println(usuario.getId()+"-"+usuario.getNombre()+"-"+usuario.getContraseña());
+			 System.out.println(usuario.getId()+"-"+usuario.getNombre()+"-"+usuario.getPassword());
 			 usuario.registrarEmprendimiento(usu.getEmprendimiento());
 			 usuarioService.actualizarUsuario(usuario);
 			 mensaje = "Se ha cambiado la contraseña con exito";
@@ -79,14 +80,17 @@ public class UsuarioController {
 	 }
 	 
 	 @PostMapping("/login")
-	 public ResponseEntity<Usuario> loginUsuario(@RequestParam String usuario, @RequestParam String contraseña) {
+	 public ResponseEntity<Usuario> loginUsuario2(@RequestParam String usuario, @RequestParam String contraseña) {
 		 String mensaje = "Usuario o contraseña no validos";
-		 if (usuarioService.loginUsuario(usuario, contraseña))  { 
+		 Usuario usu = usuarioService.loginUsuario(usuario, contraseña);
+		 System.out.println("DENTRO DEL LOGIN");
+		 if (usu != null)  { 
 			 mensaje = "Usuario logeado con exito"; 
-			 return new ResponseEntity(mensaje, HttpStatus.OK);
+			 return new ResponseEntity<Usuario>(usu, HttpStatus.OK);
 		 } 
 		 return new ResponseEntity(mensaje,HttpStatus.FORBIDDEN);
 	 }
+	 
 	 
 	 @PostMapping("/registrarEmprendimiento")
 	 public ResponseEntity<Usuario> registrarEmprendimiento(@RequestParam int idUsuario, @RequestBody Emprendimiento empre){
@@ -125,6 +129,17 @@ public class UsuarioController {
 			 return new ResponseEntity("Usuario eliminado",HttpStatus.OK);
 		 }
 		 else  return new ResponseEntity("El usuario ingresado no se encuentra en la BD",HttpStatus.NOT_FOUND);
+	 }
+	 
+	 
+	 
+	 @PostMapping("/altaCategoria")
+	 public ResponseEntity<Usuario> altaCategoria(@RequestBody Categoria categoria){
+		 String mensaje= "Categoria existente";
+		 if(usuarioService.altaCategoria(categoria) !=null) {
+			 return new ResponseEntity(categoria,HttpStatus.CREATED);
+		 }
+		 return new ResponseEntity(mensaje,HttpStatus.BAD_REQUEST);
 	 }
 }
 

@@ -28,7 +28,7 @@ public class Usuario {
 	@Column(name="email")
 	private String email;
 	@Column(name="contraseña")
-	private String contraseña;
+	private String password;
 	@Column(name="esAdmin")
 	private boolean esAdmin;
 	
@@ -47,7 +47,7 @@ public class Usuario {
 	public Usuario(String usuario, String email, String contraseña,boolean admin) {
 		this.setNombre(usuario);
 		this.setEmail(email);
-		this.setContraseña(contraseña);
+		this.setPassword(contraseña);
 		this.setEsAdmin(admin);
 		this.donaciones = new ArrayList<Donacion>();
 	}
@@ -63,11 +63,11 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getContraseña() {
-		return contraseña;
+	public String getPassword() {
+		return password;
 	}
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setPassword(String contraseña) {
+		this.password = contraseña;
 	}
 
 	public void donarManguitos(Donacion donacion) {

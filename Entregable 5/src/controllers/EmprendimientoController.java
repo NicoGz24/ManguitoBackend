@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,7 @@ import model.Emprendimiento;
 import repositorys.EmprendimientoRepository;
 import services.EmprendimientoService;
 
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/Emprendimiento")
 public class EmprendimientoController {
@@ -46,6 +48,16 @@ public class EmprendimientoController {
 		return new ResponseEntity("El emprendimiento ingresado no se encuentra en la bd",HttpStatus.NOT_FOUND);	
 	}
 	
+	@GetMapping("/buscarEmprendimientoNombre")
+	public ResponseEntity<Emprendimiento> buscarEmprendimientoNombre(@RequestParam String nombre){
+		Emprendimiento empre = emprendimientoService.recuperarEmprendimientoNombre(nombre);
+		if(empre != null) {
+			return new ResponseEntity<Emprendimiento>(empre,HttpStatus.OK);
+		}
+		else
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+	}
+	
 	@GetMapping ("/listarDonacionesEmprendimiento")
 	public ResponseEntity<List<Donacion>>obtenerDonaciones(@RequestParam int idEmprendimiento){
 		Emprendimiento empre = emprendimientoService.recuperarEmprendimiento(idEmprendimiento);
@@ -62,6 +74,16 @@ public class EmprendimientoController {
 			return new ResponseEntity("Emprendimiento eliminado",HttpStatus.OK); 
 		}
 		return new ResponseEntity("El emprendimiento ingresado no se encuentra en la bd",HttpStatus.NOT_FOUND);	
+	}
+	
+	@GetMapping("/listarEmprendimientos")
+	public ResponseEntity<List<Emprendimiento>> listarEmprendimientos(){
+		List<Emprendimiento>emprendimientos = this.emprendimientoService.listar();
+		if(emprendimientos != null) {
+			return new ResponseEntity<List<Emprendimiento>>(emprendimientos,HttpStatus.OK);
+		}
+		else
+			return new ResponseEntity<List<Emprendimiento>>(HttpStatus.NOT_FOUND);
 	}
 
 }

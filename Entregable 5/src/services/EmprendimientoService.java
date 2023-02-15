@@ -1,5 +1,7 @@
 package services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,10 @@ public class EmprendimientoService {
 		return emprendimientoRepository.findById(idEmprendimiento);
 	}
 	
+	public Emprendimiento recuperarEmprendimientoNombre(String nombre) {
+		return emprendimientoRepository.findBynombre(nombre);
+	}
+	
 	public boolean eliminarEmprendimiento(int idEmprendimiento) {
 		Emprendimiento empre = emprendimientoRepository.findById(idEmprendimiento);
 		if (empre != null) {
@@ -33,7 +39,11 @@ public class EmprendimientoService {
 	
 	public void actualizarDatosEmprendimiento(Emprendimiento empre) {
 		emprendimientoRepository.save(empre);
-}
+	}
+	
+	public List<Emprendimiento>listar(){
+		return emprendimientoRepository.findAll();
+	}
 
 
 }
