@@ -8,10 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import model.Categoria;
@@ -26,6 +28,9 @@ public class CategoriaController {
 	private CategoriaService categoriaService;
 
 	
+	
+	
+	
 	@GetMapping("listarCategorias")
 	public ResponseEntity<List<Categoria>>listarCategorias(){
 		List<Categoria>categorias = categoriaService.listar();
@@ -33,8 +38,19 @@ public class CategoriaController {
 			return new ResponseEntity<List<Categoria>>(categorias,HttpStatus.OK);
 		}
 		else
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
+			return new ResponseEntity(null,HttpStatus.NOT_FOUND);
 	}
+	
+	@GetMapping("buscarCategoriaPorNombre")
+	public ResponseEntity<Categoria>buscarCategoriaPorNombre(@RequestParam String nombre){
+		Categoria cate = this.categoriaService.buscarCategoriaNombre(nombre);
+		if(cate != null) {
+			return new ResponseEntity<Categoria>(cate,HttpStatus.OK);
+		}
+		else
+			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+	}
+	
 	
 	@PutMapping("actualizarCategoria")
 	public ResponseEntity<Categoria>editarCategoria(@RequestBody Categoria categoria){
@@ -43,7 +59,7 @@ public class CategoriaController {
 			return new ResponseEntity<Categoria>(categoria,HttpStatus.OK);
 		}
 		
-		return new ResponseEntity<Categoria>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
 	}
 	
 	@DeleteMapping("eliminarCategoria")

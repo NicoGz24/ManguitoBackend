@@ -3,6 +3,8 @@ package services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,8 @@ public class CategoriaService {
 	
 	@Autowired
 	private CategoriaRepository categoriaRepository;
+
+	
 	
 	public List<Categoria>listar(){
 		return categoriaRepository.findAll();
@@ -24,6 +28,10 @@ public class CategoriaService {
 	
 	public Categoria buscarCategoriaId(int id) {
 		return categoriaRepository.findById(id);
+	}
+	
+	public Categoria buscarCategoriaNombre(String nombre) {
+		return categoriaRepository.findByNombre(nombre);
 	}
 	
 	public void actualizarCategoria(Categoria cate) {
