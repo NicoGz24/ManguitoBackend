@@ -89,7 +89,7 @@ public class UsuarioController {
 			 System.out.println("datos del usuario= "+ usu.getEmail());
 			 return new ResponseEntity<Usuario>(usu, HttpStatus.OK);
 		 } 
-		 else return new ResponseEntity(mensaje,HttpStatus.FORBIDDEN);
+		 else return new ResponseEntity<Usuario>(usu,HttpStatus.FORBIDDEN);
 	 }
 	 
 	 
@@ -141,6 +141,15 @@ public class UsuarioController {
 			 return new ResponseEntity(categoria,HttpStatus.CREATED);
 		 }
 		 return new ResponseEntity(mensaje,HttpStatus.BAD_REQUEST);
+	 }
+	 
+	 @GetMapping("/recuperarEmprenPorIdUsuario")
+	 public ResponseEntity<Emprendimiento>recuperarEmprenPorIdUsuario(@RequestParam int idUsuario){
+		 Usuario usu= usuarioService.buscarUsuario(idUsuario);
+		 if (usu.getEmprendimiento() !=null) {
+			 return new ResponseEntity<Emprendimiento>(usu.getEmprendimiento(),HttpStatus.OK);
+		 }
+		 else  return new ResponseEntity(HttpStatus.NOT_FOUND);
 	 }
 }
 
