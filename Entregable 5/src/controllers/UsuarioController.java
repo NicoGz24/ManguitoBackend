@@ -86,9 +86,10 @@ public class UsuarioController {
 		 System.out.println("DENTRO DEL LOGIN");
 		 if (usu != null)  { 
 			 mensaje = "Usuario logeado con exito"; 
+			 System.out.println("datos del usuario= "+ usu.getEmail());
 			 return new ResponseEntity<Usuario>(usu, HttpStatus.OK);
 		 } 
-		 return new ResponseEntity(mensaje,HttpStatus.FORBIDDEN);
+		 else return new ResponseEntity(mensaje,HttpStatus.FORBIDDEN);
 	 }
 	 
 	 

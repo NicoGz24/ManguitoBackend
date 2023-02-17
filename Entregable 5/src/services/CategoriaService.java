@@ -38,15 +38,15 @@ public class CategoriaService {
 		categoriaRepository.save(cate);
 	}
 
-	public Categoria eliminarCategoria(int id) {
+	public boolean eliminarCategoria(int id) {
 		System.out.println("DENTRO DEL SERVICIO");
 		Categoria cate = categoriaRepository.findById(id);
 		if(cate != null) {
 			categoriaRepository.delete(cate);
 			System.out.println("FIN DEL SERVICIO");
-			return cate;
+			return true;
 		}
-		return cate;
+		return false;
 	}
 	
 }

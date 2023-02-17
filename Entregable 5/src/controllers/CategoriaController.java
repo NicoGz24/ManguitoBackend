@@ -54,6 +54,7 @@ public class CategoriaController {
 	
 	@PutMapping("actualizarCategoria")
 	public ResponseEntity<Categoria>editarCategoria(@RequestBody Categoria categoria){
+		System.out.println("DENTRO DEL actualizarCategoria");
 		if(categoriaService.buscarCategoriaId(categoria.getId()) != null) {
 			categoriaService.actualizarCategoria(categoria);
 			return new ResponseEntity<Categoria>(categoria,HttpStatus.OK);
@@ -65,10 +66,11 @@ public class CategoriaController {
 	@DeleteMapping("eliminarCategoria")
 	public ResponseEntity<Categoria>eliminarCategoria(@RequestParam int idCategoria){
 		System.out.println("DENTRO DEL ELMINAR");
-		if(categoriaService.eliminarCategoria(idCategoria) != null) {
+		if(categoriaService.eliminarCategoria(idCategoria)) {
 			System.out.println("PASO EL IF");
-			return new ResponseEntity<Categoria>(HttpStatus.OK);
+			return new ResponseEntity(HttpStatus.OK);
 		}
-		return new ResponseEntity("Categoria no encontrada",HttpStatus.NOT_FOUND);
+		else
+			return new ResponseEntity("Categoria no encontrada",HttpStatus.NOT_FOUND);
 	}
 }
