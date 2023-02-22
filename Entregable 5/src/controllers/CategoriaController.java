@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import model.Categoria;
+import model.Emprendimiento;
 import services.CategoriaService;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
@@ -30,6 +31,18 @@ public class CategoriaController {
 	
 	
 	
+	
+	@GetMapping("recuperarCategoriaId")
+	public ResponseEntity<Categoria>recuperarCategoriaId(@RequestParam int idCategoria){
+		Categoria cate = this.categoriaService.buscarCategoriaId(idCategoria);
+		if(cate != null) {
+			return new ResponseEntity<Categoria>(cate,HttpStatus.OK);
+		}
+		else {
+			cate = null;
+			return new ResponseEntity<Categoria>(cate, HttpStatus.NOT_FOUND);
+		}
+	}
 	
 	@GetMapping("listarCategorias")
 	public ResponseEntity<List<Categoria>>listarCategorias(){
@@ -73,4 +86,10 @@ public class CategoriaController {
 		else
 			return new ResponseEntity("Categoria no encontrada",HttpStatus.NOT_FOUND);
 	}
+	
+	@GetMapping("recuperarEmprendimientosPorCagoria")
+		public ResponseEntity<List<Emprendimiento>>recuperarEmprendimientosPorCategoria(@RequestParam int idCategoria){
+			return new ResponseEntity<List<Emprendimiento>>(null);
+		}
+	
 }

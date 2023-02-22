@@ -31,9 +31,13 @@ public class EmprendimientoController {
 
 
 	@PutMapping("/actualizarEmprendimiento")
-	public ResponseEntity<Emprendimiento> actualizarDatosEmprendimiento(@RequestBody Emprendimiento empre) {
-		if(emprendimientoService.recuperarEmprendimiento(empre.getId()) !=null) {
-			emprendimientoService.actualizarDatosEmprendimiento(empre);
+	public ResponseEntity<Emprendimiento> actualizarDatosEmprendimiento(@RequestBody Emprendimiento emprendimiento) {
+		System.out.println("DENTRO DEL ACTUALIZAR EMPRENDIMIENTO");
+		if(emprendimientoService.recuperarEmprendimiento(emprendimiento.getId()) !=null) {
+			Emprendimiento empre = this.emprendimientoService.recuperarEmprendimiento(emprendimiento.getId());
+			emprendimiento.setPlanes(empre.getPlanes());
+			emprendimiento.setPosteos(empre.getPosteos());
+			emprendimientoService.actualizarDatosEmprendimiento(emprendimiento);
 			return new ResponseEntity("Emprendimiento actualizado con exito",HttpStatus.OK);
 		}
 		return new ResponseEntity("El emprendimiento ingresado no se encuentra en la bd",HttpStatus.NOT_FOUND);

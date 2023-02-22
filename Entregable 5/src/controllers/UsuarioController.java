@@ -58,7 +58,6 @@ public class UsuarioController {
 		 String mensaje = "El usuario ingresado no se encuentra en la BD";
 		 Usuario usu = usuarioService.buscarUsuario(usuario.getId());
 		 if (usu != null) {
-			 System.out.println(usuario.getId()+"-"+usuario.getNombre()+"-"+usuario.getPassword());
 			 usuario.registrarEmprendimiento(usu.getEmprendimiento());
 			 usuarioService.actualizarUsuario(usuario);
 			 mensaje = "Se ha cambiado la contraseña con exito";

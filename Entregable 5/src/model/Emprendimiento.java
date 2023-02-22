@@ -114,6 +114,9 @@ public class Emprendimiento {
 	public List<Posteo> getPosteos() {
 		return listaPosteos;
 	}
+	public void setPosteos(List<Posteo>posteos) {
+		this.listaPosteos=posteos;
+	}
 	public void nuevoPosteo(Posteo posteo) {
 		this.listaPosteos.add(posteo);
 	}
@@ -139,6 +142,10 @@ public class Emprendimiento {
 	public List<Plan> getPlanes() {
 		return listaPlanes;
 	}
+	
+	public void setPlanes(List<Plan>planes) {
+		this.listaPlanes=planes;
+	}
 
 	public void nuevoPlan(Plan plan) {
 		this.getPlanes().add(plan);
@@ -154,4 +161,6 @@ public class Emprendimiento {
 	public int getId() {
 		return id;
 	}
+	
+
 }
