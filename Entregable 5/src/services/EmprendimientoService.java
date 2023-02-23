@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import model.Categoria;
 import model.Emprendimiento;
+import repositorys.CategoriaRepository;
 import repositorys.EmprendimientoRepository;
 
 
@@ -16,7 +18,8 @@ public class EmprendimientoService {
 
 	@Autowired
 	private EmprendimientoRepository emprendimientoRepository;
-
+	@Autowired
+	private CategoriaRepository categoriaRepository;
 
 	
 	
@@ -45,5 +48,15 @@ public class EmprendimientoService {
 		return emprendimientoRepository.findAll();
 	}
 
-
+	public Emprendimiento actualizarCategorias(int idEmprendimiento, int idCategoria) {
+		Emprendimiento emprendimiento = this.recuperarEmprendimiento(idEmprendimiento);
+		if(emprendimiento!=null) {
+			Categoria categoria = this.categoriaRepository.findById(idCategoria);
+			emprendimiento.getCategorias().add(categoria);
+			this.emprendimientoRepository.save(emprendimiento);
+			return emprendimiento;
+		}
+		else
+			return null;
+	}
 }

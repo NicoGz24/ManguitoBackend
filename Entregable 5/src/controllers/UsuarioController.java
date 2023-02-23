@@ -88,16 +88,17 @@ public class UsuarioController {
 			 System.out.println("datos del usuario= "+ usu.getEmail());
 			 return new ResponseEntity<Usuario>(usu, HttpStatus.OK);
 		 } 
-		 else return new ResponseEntity<Usuario>(usu,HttpStatus.FORBIDDEN);
+		 else 
+			 System.out.println("se fue por el else = " + usu);
+			 return new ResponseEntity<Usuario>(usu,HttpStatus.FORBIDDEN);
 	 }
 	 
 	 
 	 @PostMapping("/registrarEmprendimiento")
-	 public ResponseEntity<Usuario> registrarEmprendimiento(@RequestParam int idUsuario, @RequestBody Emprendimiento empre){
+	 public ResponseEntity<Emprendimiento> registrarEmprendimiento(@RequestParam int idUsuario, @RequestBody Emprendimiento empre){
 		 String mensaje = "Los datos ingresados no son validos";
 		 if (usuarioService.registrarEmprendimiento(idUsuario, empre) != null) {
-			 mensaje = "Se ha registrado con exito el emprendimiento";
-			 return new ResponseEntity(mensaje,HttpStatus.OK);
+			 return new ResponseEntity<Emprendimiento>(empre,HttpStatus.OK);
 		 }
 		 else  return new ResponseEntity(mensaje,HttpStatus.NOT_FOUND);
 		 

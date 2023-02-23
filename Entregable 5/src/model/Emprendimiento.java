@@ -162,5 +162,8 @@ public class Emprendimiento {
 		return id;
 	}
 	
+	public boolean perteneceCategoria(Categoria categoria) {
+		return this.getCategorias().contains(categoria);
+	}
 
 }
