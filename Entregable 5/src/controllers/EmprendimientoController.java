@@ -40,7 +40,7 @@ public class EmprendimientoController {
 			emprendimiento.setPlanes(empre.getPlanes());
 			emprendimiento.setPosteos(empre.getPosteos());
 			emprendimientoService.actualizarDatosEmprendimiento(emprendimiento);
-			return new ResponseEntity<Emprendimiento>(empre,HttpStatus.OK);
+			return new ResponseEntity<Emprendimiento>(emprendimiento,HttpStatus.OK);
 		}
 		return new ResponseEntity<Emprendimiento>(empre,HttpStatus.NOT_FOUND);
 	}
@@ -143,9 +143,21 @@ public class EmprendimientoController {
 		}
 		else
 			return new ResponseEntity<Emprendimiento>(emprendimiento,HttpStatus.NOT_FOUND);
-			
-			
+				
 	}
 	
+	@PutMapping("actualizarCategoriasDelEmprendimiento")
+	public ResponseEntity<Emprendimiento> actualizarCategoriasDelEmprendimiento(@RequestParam int idEmprendimiento, @RequestBody List<Categoria>categorias){
+		Emprendimiento emprendimiento = this.emprendimientoService.recuperarEmprendimiento(idEmprendimiento);
+		if(emprendimiento !=null) {
+			for(Categoria cate:categorias) {
+				emprendimiento = this.emprendimientoService.actualizarCategorias(idEmprendimiento, cate.getId());
+			}
+			return new ResponseEntity<Emprendimiento>(emprendimiento,HttpStatus.OK);
+		}
+		else
+			return new ResponseEntity<Emprendimiento>(emprendimiento,HttpStatus.NOT_FOUND);
+				
+	}
 	
 }
