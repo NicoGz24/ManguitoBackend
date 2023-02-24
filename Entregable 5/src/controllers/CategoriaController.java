@@ -79,12 +79,13 @@ public class CategoriaController {
 	@DeleteMapping("eliminarCategoria")
 	public ResponseEntity<Categoria>eliminarCategoria(@RequestParam int idCategoria){
 		System.out.println("DENTRO DEL ELMINAR");
+		Categoria categoria = this.categoriaService.buscarCategoriaId(idCategoria);
 		if(categoriaService.eliminarCategoria(idCategoria)) {
 			System.out.println("PASO EL IF");
-			return new ResponseEntity(HttpStatus.OK);
+			return new ResponseEntity<Categoria>(categoria,HttpStatus.OK);
 		}
 		else
-			return new ResponseEntity("Categoria no encontrada",HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Categoria>(categoria,HttpStatus.NOT_FOUND);
 	}
 	
 	@GetMapping("recuperarEmprendimientosPorCagoria")

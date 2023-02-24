@@ -54,16 +54,13 @@ public class UsuarioController {
 		
 	 @PutMapping("/actualizarUsuario")
 	 public ResponseEntity<Usuario> actualizarUsuario(@RequestBody Usuario usuario) {
-		 System.out.println("DENTRO DEL ACTUALIZAR");
-		 String mensaje = "El usuario ingresado no se encuentra en la BD";
 		 Usuario usu = usuarioService.buscarUsuario(usuario.getId());
 		 if (usu != null) {
 			 usuario.registrarEmprendimiento(usu.getEmprendimiento());
 			 usuarioService.actualizarUsuario(usuario);
-			 mensaje = "Se ha cambiado la contraseña con exito";
-			 return new ResponseEntity(mensaje,HttpStatus.OK);
+			 return new ResponseEntity<Usuario>(usu,HttpStatus.OK);
 		 }
-		 else  return new ResponseEntity(mensaje,HttpStatus.NOT_FOUND);
+		 else  return new ResponseEntity<Usuario>(usu,HttpStatus.NOT_FOUND);
 	 	}
 
 	
@@ -96,11 +93,10 @@ public class UsuarioController {
 	 
 	 @PostMapping("/registrarEmprendimiento")
 	 public ResponseEntity<Emprendimiento> registrarEmprendimiento(@RequestParam int idUsuario, @RequestBody Emprendimiento empre){
-		 String mensaje = "Los datos ingresados no son validos";
 		 if (usuarioService.registrarEmprendimiento(idUsuario, empre) != null) {
 			 return new ResponseEntity<Emprendimiento>(empre,HttpStatus.OK);
 		 }
-		 else  return new ResponseEntity(mensaje,HttpStatus.NOT_FOUND);
+		 else  return new ResponseEntity(null,HttpStatus.NOT_FOUND);
 		 
 	 }
 	 

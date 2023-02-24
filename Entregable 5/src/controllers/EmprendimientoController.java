@@ -35,7 +35,6 @@ public class EmprendimientoController {
 
 	@PutMapping("/actualizarEmprendimiento")
 	public ResponseEntity<Emprendimiento> actualizarDatosEmprendimiento(@RequestBody Emprendimiento emprendimiento) {
-		System.out.println("DENTRO DEL ACTUALIZAR EMPRENDIMIENTO");
 		Emprendimiento empre = this.emprendimientoService.recuperarEmprendimiento(emprendimiento.getId());
 		if(empre !=null) {
 			emprendimiento.setPlanes(empre.getPlanes());
@@ -52,7 +51,7 @@ public class EmprendimientoController {
 		if (empre != null) {
 			return new ResponseEntity<Emprendimiento>(empre,HttpStatus.OK); 
 		}
-		return new ResponseEntity("El emprendimiento ingresado no se encuentra en la bd",HttpStatus.NOT_FOUND);	
+		return new ResponseEntity<Emprendimiento>(empre,HttpStatus.NOT_FOUND);	
 	}
 	
 	@GetMapping("/buscarEmprendimientoNombre")
@@ -62,7 +61,7 @@ public class EmprendimientoController {
 			return new ResponseEntity<Emprendimiento>(empre,HttpStatus.OK);
 		}
 		else
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Emprendimiento>(empre,HttpStatus.NOT_FOUND);
 	}
 	
 	@GetMapping ("/listarDonacionesEmprendimiento")
